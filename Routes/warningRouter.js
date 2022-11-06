@@ -34,6 +34,16 @@ warningRouter.delete('/delete/:id', asyncHandler(async (req, res) => {
     await Warning.deleteOne({ _id: id });
 }));
 
+warningRouter.post('/create', asyncHandler(async (req, res) => {
+    console.log(req.body.patientID);
+    const warning = new Warning({
+        patientID: req.body.patientID,
+        dateTime: new Date()
+    });
+    const createdWarning = await warning.save();
+    // res.send(createdWarning);
+}))
+
 
 
 

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import asyncHandler from 'express-async-handler';
 import Patient from '../Models/PatientModel.js';
 import patientData from '../data/patientData.js';
@@ -30,6 +30,7 @@ patientRouter.get('/m', asyncHandler(async (req, res) => {
 
 patientRouter.post('/signin', asyncHandler(async (req, res) => {
     const patient = await Patient.findOne({ cccd: req.body.cccd });
+    console.log(patient);
     if (patient) {
         if (bcrypt.compareSync(req.body.password, patient.password)) {
             res.send({
@@ -62,6 +63,8 @@ patientRouter.post('/register', asyncHandler(async (req, res) => {
     }
     res.status(401).send({ message: 'Số căn cước đã được đăng ký !' })
 }));
+
+
 
 patientRouter.get('/:id', asyncHandler(async (req, res) => {
     const patient = await Patient.findById(req.params.id);
