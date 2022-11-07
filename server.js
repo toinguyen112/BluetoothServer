@@ -46,9 +46,9 @@ app.use('/api/patients', patientRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/warnings', warningRouter);
 
-const port = process.env.port || 5000;
-console.log(port);
-app.listen(port, () => console.log(`Server run in port ${port}`));
-server.listen(5001, () => {
-    console.log("Listening socket on port 5001");
-})
+const PORT = process.env.PORT || 5000;
+console.log(PORT);
+app.listen(PORT, () => console.log(`Server run in port ${PORT}`));
+// server.listen(5001, () => {
+//     console.log("Listening socket on port 5001");
+// })
