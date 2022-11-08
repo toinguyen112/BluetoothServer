@@ -51,8 +51,9 @@ app.use('/api/warnings', warningRouter);
 // console.log(app.get('port'));
 
 
-const port = process.env.PORT || 5000;
-console.log(process.env.PORT)
+const port = process.env.PORT > 5000 ? 5000 : 5000;
+console.log(process.env.PORT);
+console.log(port);
 app.listen(port, () => console.log(`Server run in port ${port}`));
 
 server.listen(5001, () => {
