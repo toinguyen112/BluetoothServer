@@ -64,6 +64,24 @@ patientRouter.post('/register', asyncHandler(async (req, res) => {
     res.status(401).send({ message: 'Số căn cước đã được đăng ký !' })
 }));
 
+patientRouter.put('/edit', asyncHandler(async (req, res) => {
+    const patient = await Patient.findOne({ cccd: req.body.cccd });
+    if (patient) {
+        patient.cccd = req.body.cccd || patient.cccd;
+        patient.name = req.body.name || patient.name;
+        patient.phone = req.body.phone || patient.phone;
+        patient.address = req.body.address || patient.address;
+    }
+    const patientUpdated = await patient.save();
+    return res.send(patientUpdated);
+}));
+
+patientRouter.delete('/delete/:id', asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    await Patient.deleteOne({ _id: id });
+    return;
+}))
+
 
 
 patientRouter.get('/:id', asyncHandler(async (req, res) => {

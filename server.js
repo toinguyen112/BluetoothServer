@@ -49,12 +49,11 @@ app.use('/api/warnings', warningRouter);
 
 // app.set('port', (process.env.PORT || 5000));
 // console.log(app.get('port'));
+// const port = process.env.PORT > 5000 ? 5000 : 5000;
 
+const PORT = process.env.PORT || 5000;
 
-const port = process.env.PORT > 5000 ? 5000 : 5000;
-console.log(process.env.PORT);
-console.log(port);
-app.listen(port, () => console.log(`Server run in port ${port}`));
+app.listen(PORT, () => console.log(`Server run in port ${PORT}`));
 
 server.listen(5001, () => {
     console.log("Listening socket on port 5001");

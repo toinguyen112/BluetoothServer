@@ -32,6 +32,7 @@ warningRouter.get('/:id', asyncHandler(async (req, res) => {
 warningRouter.delete('/delete/:id', asyncHandler(async (req, res) => {
     const id = req.params.id;
     await Warning.deleteOne({ _id: id });
+    return;
 }));
 
 warningRouter.post('/create', asyncHandler(async (req, res) => {
@@ -41,7 +42,7 @@ warningRouter.post('/create', asyncHandler(async (req, res) => {
         dateTime: new Date()
     });
     const createdWarning = await warning.save();
-    // res.send(createdWarning);
+    return res.send(createdWarning);
 }))
 
 
