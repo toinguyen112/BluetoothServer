@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const AdminModel = new mongoose.Schema(
+const DoctorModel = new mongoose.Schema(
     {
         email: { type: String, required: true },
         password: { type: String, required: true }
@@ -10,6 +10,6 @@ const AdminModel = new mongoose.Schema(
     }
 );
 
-const Admin = mongoose.model("Admin", AdminModel);
-export default Admin;
+const Doctor = mongoose.model("Doctor", DoctorModel);
+export default Doctor;
 

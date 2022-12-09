@@ -2,7 +2,7 @@ import express, { response } from 'express';
 import asyncHandler from 'express-async-handler';
 import Patient from '../Models/PatientModel.js';
 import patientData from '../data/patientData.js';
-import { authenToken } from './adminRouter.js';
+import { authenToken } from './doctorRouter.js';
 import jwt from 'jsonwebtoken';
 
 
@@ -30,7 +30,6 @@ patientRouter.get('/m', asyncHandler(async (req, res) => {
 
 patientRouter.post('/signin', asyncHandler(async (req, res) => {
     const patient = await Patient.findOne({ cccd: req.body.cccd });
-    console.log(patient);
     if (patient) {
         if (bcrypt.compareSync(req.body.password, patient.password)) {
             res.send({
@@ -48,6 +47,9 @@ patientRouter.post('/signin', asyncHandler(async (req, res) => {
 
 
 patientRouter.post('/register', asyncHandler(async (req, res) => {
+
+
+
     const patient = await Patient.findOne({ cccd: req.body.cccd });
     if (!patient) {
         const patient = new Patient({
@@ -62,15 +64,21 @@ patientRouter.post('/register', asyncHandler(async (req, res) => {
         return
     }
     res.status(401).send({ message: 'Số căn cước đã được đăng ký !' })
+
+
+
+
 }));
 
 patientRouter.put('/edit', asyncHandler(async (req, res) => {
-    const patient = await Patient.findOne({ cccd: req.body.cccd });
+    const patient = await Patient.findOne({ _id: req.body.id });
+
+
     if (patient) {
-        patient.cccd = req.body.cccd || patient.cccd;
-        patient.name = req.body.name || patient.name;
-        patient.phone = req.body.phone || patient.phone;
-        patient.address = req.body.address || patient.address;
+        patient.cccd = req.body.cccd;
+        patient.name = req.body.name;
+        patient.phone = req.body.phone;
+        patient.address = req.body.address;
     }
     const patientUpdated = await patient.save();
     return res.send(patientUpdated);

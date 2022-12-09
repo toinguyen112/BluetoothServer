@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import Warning from '../Models/WarningModel.js';
 import warningData from '../data/warningData.js';
 import Patient from '../Models/PatientModel.js';
-import { authenToken } from './adminRouter.js';
+import { authenToken } from './doctorRouter.js';
 
 import bcrypt from 'bcryptjs';
 

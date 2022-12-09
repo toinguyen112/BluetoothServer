@@ -1,11 +1,11 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import Admin from '../Models/AdminModel.js';
+import Doctor from '../Models/DoctorModel.js';
 
 import bcrypt from 'bcryptjs';
 
-const adminRouter = express.Router();
-import adminData from '../data/adminData.js';
+const doctorRouter = express.Router();
+import doctorData from '../data/doctorData.js';
 
 import { generateToken } from '../utils.js';
 
@@ -15,22 +15,22 @@ import jwt from 'jsonwebtoken';
 
 
 
-// import admin db
-adminRouter.get('/seed', asyncHandler(async (req, res) => {
-    await Admin.remove({});
-    const createdAdmin = await Admin.insertMany(adminData);
-    res.send({ createdAdmin });
+// import doctor db
+doctorRouter.get('/seed', asyncHandler(async (req, res) => {
+    await Doctor.remove({});
+    const createdDoctor = await Doctor.insertMany(doctorData);
+    res.send({ createdDoctor });
 }));
 
-adminRouter.post('/login', asyncHandler(async (req, res) => {
-    const admin = await Admin.findOne({ email: req.body.email });
-    if (admin) {
-        if (bcrypt.compareSync(req.body.password, admin.password) > 0) {
+doctorRouter.post('/login', asyncHandler(async (req, res) => {
+    const doctor = await Doctor.findOne({ email: req.body.email });
+    if (doctor) {
+        if (bcrypt.compareSync(req.body.password, doctor.password) > 0) {
             res.send({
-                _id: admin._id,
-                email: admin.email,
-                password: admin.password,
-                token: generateToken(admin)
+                _id: doctor._id,
+                email: doctor.email,
+                password: doctor.password,
+                token: generateToken(doctor)
             });
             return
         }
@@ -55,4 +55,4 @@ export const authenToken = (req, res, next) => {
 }
 
 
-export default adminRouter;
+export default doctorRouter;

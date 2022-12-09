@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDatabase from "./config/MongoDb.js";
 import patientRouter from './Routes/patientRouter.js';
-import adminRouter from "./Routes/adminRouter.js";
+import doctorRouter from "./Routes/doctorRouter.js";
 import warningRouter from "./Routes/warningRouter.js";
 import { Server } from 'socket.io';
 import http from 'http';
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/patients', patientRouter);
-app.use('/api/admin', adminRouter);
+app.use('/api/doctors', doctorRouter);
 app.use('/api/warnings', warningRouter);
 
 
